@@ -15,9 +15,23 @@ export function setLocalStorage(key, data) {
 }
 // set a listener for both touchend and click
 export function setClick(selector, callback) {
-  qs(selector).addEventListener("touchend", (event) => {
+  qs(selector).addEventListener('touchend', (event) => {
     event.preventDefault();
     callback();
   });
-  qs(selector).addEventListener("click", callback);
+  qs(selector).addEventListener('click', callback);
 }
+
+// Get Params from location
+export const getParam = (param = 'product') => {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  return urlParams.get(param);
+};
+
+// Add Product To cart
+export const addProductToCart = (product) => {
+  const cart = getLocalStorage('so-cart') || [];
+  cart.push(product);
+  setLocalStorage('so-cart', cart);
+};
