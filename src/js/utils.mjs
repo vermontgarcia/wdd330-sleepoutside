@@ -21,3 +21,16 @@ export function setClick(selector, callback) {
   });
   qs(selector).addEventListener('click', callback);
 }
+
+export const getParam = (param) => {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const product = urlParams.get('product')
+  return product
+}
+
+export const addProductToCart = (product) => {
+  const cartItems = getLocalStorage('so-cart') || [];
+  cartItems.push(product);
+  setLocalStorage('so-cart', cartItems);
+}
