@@ -25,12 +25,25 @@ export function setClick(selector, callback) {
 export const getParam = (param) => {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const product = urlParams.get('product')
-  return product
-}
+  return urlParams.get(param);
+};
 
 export const addProductToCart = (product) => {
   const cartItems = getLocalStorage('so-cart') || [];
   cartItems.push(product);
   setLocalStorage('so-cart', cartItems);
-}
+};
+
+export const renderListWithTemplate = (
+  templateFunction,
+  parentElement,
+  list,
+  position = 'afterBegin',
+  clear = false,
+) => {
+  const htmlStrins = list.map(templateFunction);
+  if (clear) {
+    parentElement.innerHTML = '';
+  }
+  parentElement.insertAdjacentHTML(position, htmlStrins.join(''));
+};
