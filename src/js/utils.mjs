@@ -34,3 +34,40 @@ export const addProductToCart = (product) => {
   cartItems.push(product);
   setLocalStorage('so-cart', cartItems);
 }
+
+export const renderWithTemplate = (template, parentElement, data, callback) => {
+  parentElement.innerHTML = template;
+  if (callback) {
+    callback(data);
+  }
+}
+
+export const loadTemplate = async (path) => {
+  const response = await fetch(path);
+  return response.text();
+}
+
+export const loadHeaderFooter = async () => {
+  const header = await loadTemplate('../partials/header.html');
+  const headerElement = qs('#header');
+  const footer = await loadTemplate('../partials/footer.html');
+  const footerElement = qs('#footer');
+  
+  renderWithTemplate(header, headerElement);
+  renderWithTemplate(footer, footerElement);
+}
+
+export function renderListWithTemplate(
+  templateFn,
+  parentElement,
+  list,
+  position = "afterbegin",
+  clear = false
+) {
+  const htmlStrings = list.map(templateFn);
+  // if clear is true we need to clear out the contents of the parent.
+  if (clear) {
+    parentElement.innerHTML = "";
+  }
+  parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
+}
