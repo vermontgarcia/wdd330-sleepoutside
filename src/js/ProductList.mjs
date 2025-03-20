@@ -37,4 +37,11 @@ export default class ProductList {
     const list = await this.dataSource.getData();
     this.renderList(list);
   }
+
+  filterProducts(query) {
+    const filteredList = this.fullList.filter(product =>
+      product.Name.toLowerCase().includes(query.toLowerCase())
+    );
+    this.renderList(filteredList); // Update displayed list
+  }
 }
