@@ -77,5 +77,4 @@ export const loadHeaderFooter = async () => {
 
   renderWithTemplate(header, headerElement);
   renderWithTemplate(footer, footerElement);
-
 };
