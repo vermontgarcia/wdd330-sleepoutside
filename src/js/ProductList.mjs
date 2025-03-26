@@ -39,8 +39,8 @@ export default class ProductList {
   }
 
   filterProducts(query) {
-    const filteredList = this.fullList.filter(product =>
-      product.Name.toLowerCase().includes(query.toLowerCase())
+    const filteredList = this.fullList.filter((product) =>
+      product.Name.toLowerCase().includes(query.toLowerCase()),
     );
     this.renderList(filteredList); // Update displayed list
   }
