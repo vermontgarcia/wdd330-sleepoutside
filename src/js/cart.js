@@ -2,14 +2,14 @@ import {
   getLocalStorage,
   setLocalStorage,
   loadHeaderFooter,
-} from "./utils.mjs";
+} from './utils.mjs';
 
 function renderCartContents() {
-  const cartItems = getLocalStorage("so-cart") || [];
+  const cartItems = getLocalStorage('so-cart') || [];
   const htmlItems = cartItems.map((item, index) =>
     cartItemTemplate(item, index),
   );
-  document.querySelector(".product-list").innerHTML = htmlItems.join("");
+  document.querySelector('.product-list').innerHTML = htmlItems.join('');
   addQuantityListeners(); // Add listeners for quantity changes
 }
 
@@ -37,10 +37,10 @@ function cartItemTemplate(item, index) {
 
 function addQuantityListeners() {
   const quantityInputs = document.querySelectorAll(
-    ".cart-card__quantity input",
+    '.cart-card__quantity input',
   );
   quantityInputs.forEach((input) => {
-    input.addEventListener("change", updateQuantity);
+    input.addEventListener('change', updateQuantity);
   });
 }
 
@@ -49,9 +49,9 @@ function updateQuantity(event) {
   const newQuantity = parseInt(event.target.value);
   if (newQuantity < 1) return; // Prevent invalid quantities
 
-  const cartItems = getLocalStorage("so-cart") || [];
+  const cartItems = getLocalStorage('so-cart') || [];
   cartItems[index].quantity = newQuantity;
-  setLocalStorage("so-cart", cartItems);
+  setLocalStorage('so-cart', cartItems);
   renderCartContents(); // Re-render cart to reflect changes
 }
 
