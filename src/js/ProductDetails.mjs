@@ -1,4 +1,4 @@
-import { addProductToCart } from './utils.mjs'
+import { addProductToCart, qs } from './utils.mjs';
 
 const productDetailsTemplate = (product) => `<section class="product-detail">
         <h3>${product.Brand.Name}</h3>
@@ -22,7 +22,7 @@ const productDetailsTemplate = (product) => `<section class="product-detail">
         <div class="product-detail__add">
           <button id="addToCart" data-id="${product.Id}">Add to Cart</button>
         </div>
-      </section>`
+      </section>`;
 
 export default class ProductDetails {
   constructor(productId, dataSource) {
@@ -32,18 +32,19 @@ export default class ProductDetails {
   }
 
   async init() {
-    this.product = await this.dataSource.findProductById(this.productId)
-    this.renderProductDetails('main')
-    document.getElementById('addToCart').addEventListener('click', this.addToCart.bind(this))
+    this.product = await this.dataSource.findProductById(this.productId);
+    this.renderProductDetails('main');
+    qs('#addToCart').addEventListener('click', this.addToCart.bind(this));
   }
 
   addToCart() {
-    const productToAdd = { ...this.product, quantity: 1 }; // Add default quantity
-    addProductToCart(productToAdd); // Add product with quantity to cart
-    alert(`${this.product.Name} has been added to your cart!`); // Optional feedback
+    addProductToCart(this.product);
   }
 
   renderProductDetails(selector) {
-    document.querySelector(selector).insertAdjacentHTML('afterBegin', productDetailsTemplate(this.product));
+    qs(selector).insertAdjacentHTML(
+      'afterBegin',
+      productDetailsTemplate(this.product),
+    );
   }
 }
