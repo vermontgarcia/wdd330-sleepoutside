@@ -3,14 +3,14 @@ import ProductData from './ProductData.mjs';
 import ProductList from './ProductList.mjs';
 
 const productData = new ProductData('tents');
-const producList = new ProductList('Tents', productData, qs('product-list'));
+const producList = new ProductList('Tents', productData, qs('#product-list'));
 producList.init();
 let fullList = [];
 
 // Ensure data is loaded before initializing search functionality
 const initialize = async () => {
   try {
-    fullList = await producList.getData(); // Wait for data to be fetched
+    fullList = await producList.dataSource.getData(); // Wait for data to be fetched
 
     producList.init(); // Initialize the listing AFTER data is fetched
 
