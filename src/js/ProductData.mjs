@@ -1,8 +1,10 @@
+const baseURL = import.meta.env.VITE_SERVER_URL;
+
 function convertToJson(res) {
   if (res.ok) {
     return res.json();
   } else {
-    throw new Error('Bad Response');
+    throw new Error("Bad Response");
   }
 }
 
@@ -14,10 +16,15 @@ export default class ProductData {
   getData() {
     return fetch(this.path)
       .then(convertToJson)
-      .then((data) => data);
+      .then((data) => data)
+      .catch((error) => {
+        console.error('Error fetching product data:', error);
+        return []; // Return empty array if fetch fails
+      });
   }
-  async findProductById(id) {
-    const products = await this.getData();
+
+  async findProductById(id, category) {
+    const products = await this.getData(category);
     return products.find((item) => item.Id === id);
   }
 }
