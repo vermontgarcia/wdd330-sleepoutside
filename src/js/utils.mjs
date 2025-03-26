@@ -30,7 +30,16 @@ export const getParam = (param) => {
 
 export const addProductToCart = (product) => {
   const cartItems = getLocalStorage('so-cart') || [];
-  cartItems.push(product);
+  const existingItemIndex = cartItems.findIndex(item => item.Id === product.Id);
+
+  if (existingItemIndex > -1) {
+    // If product already exists, update its quantity
+    cartItems[existingItemIndex].quantity += product.quantity;
+  } else {
+    // Otherwise, add the product to the cart
+    cartItems.push(product);
+  }
+
   setLocalStorage('so-cart', cartItems);
 };
 
@@ -68,4 +77,5 @@ export const loadHeaderFooter = async () => {
 
   renderWithTemplate(header, headerElement);
   renderWithTemplate(footer, footerElement);
+
 };
