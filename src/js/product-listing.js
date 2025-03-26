@@ -5,7 +5,7 @@ import ProductList from "./ProductList.mjs";
 const category = getParam('category'); // Get category from URL
 console.log("Selected category:", category);
 
-const dataSource = new ProductData("tents");
+const dataSource = new ProductData(category);
 console.log("DataSource initialized:", dataSource);
 const element = document.querySelector(".product-list");
 const listing = new ProductList(category, dataSource, element);
@@ -14,7 +14,7 @@ let fullList = [];
 // Ensure data is loaded before initializing search functionality
 async function initialize() {
     try {
-        fullList = await dataSource.getData(category); // Wait for data to be fetched
+        fullList = await listing.dataSource.getData(); // Wait for data to be fetched
         console.log("Fetched products: ", fullList);
 
         listing.init(); // Initialize the product listing

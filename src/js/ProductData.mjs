@@ -16,7 +16,7 @@ export default class ProductData {
   getData() {
     return fetch(this.path)
       .then(convertToJson)
-      .then((data) => data)
+      .then((data) => data.Result)
       .catch((error) => {
         console.error('Error fetching product data:', error);
         return []; // Return empty array if fetch fails
