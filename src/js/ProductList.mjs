@@ -1,4 +1,4 @@
-import { renderListWithTemplate } from './utils.mjs';
+import { qs, renderListWithTemplate } from './utils.mjs';
 
 const productCardTemplate = (product) => {
   const {
@@ -27,21 +27,25 @@ export default class ProductList {
     this.category = category;
     this.dataSource = dataSource;
     this.listElement = listElement;
+    this.searchBox = qs('#searchBox');
+    this.list = [];
   }
 
-  renderList(list) {
-    renderListWithTemplate(productCardTemplate, this.listElement, list);
+  renderList(list, listElement, clear = false) {
+    renderListWithTemplate(productCardTemplate, listElement, list, clear);
   }
 
   async init() {
-    const list = await this.dataSource.getData();
-    this.renderList(list);
+    this.list = await this.dataSource.getData();
+    this.renderList(this.list, this.listElement);
+    this.searchBox.addEventListener('input', this.searchProducts.bind(this));
   }
 
-  filterProducts(query) {
-    const filteredList = this.fullList.filter((product) =>
+  searchProducts(event) {
+    const query = event.target.value.trim().toLowerCase();
+    const filteredList = this.list?.filter((product) =>
       product.Name.toLowerCase().includes(query.toLowerCase()),
     );
-    this.renderList(filteredList); // Update displayed list
+    this.renderList(filteredList, this.listElement, true); // Update displayed list
   }
 }
