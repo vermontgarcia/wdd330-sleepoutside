@@ -39,6 +39,7 @@ export const addProductToCart = (product) => {
     cartItems[existingItemIndex].quantity += product.quantity;
   } else {
     // Otherwise, add the product to the cart
+    product.quantity = 1;
     cartItems.push(product);
   }
 

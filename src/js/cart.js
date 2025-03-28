@@ -30,7 +30,7 @@ function cartItemTemplate(product, index) {
 
   return `
   <li class="cart-card divider">
-    <a href="/product/${id}" class="cart-card__image">
+    <a href="/product_pages/?product=${id}" class="cart-card__image">
       <picture>
         <source media="(min-width: 1500px)" srcset="${extraLargeUrl}" />
         <source media="(min-width: 1000px)" srcset="${largeUrl}" />
