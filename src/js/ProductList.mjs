@@ -5,7 +5,12 @@ const productCardTemplate = (product) => {
     id,
     Brand: { Name: brandName },
     NameWithoutBrand: name,
-    Images: { PrimarySmall: smallUrl, PrimaryMedium: mediumUrl, PrimaryLarge: largeUrl, PrimaryExtraLarge: extraLargeUrl },
+    Images: {
+      PrimarySmall: smallUrl,
+      PrimaryMedium: mediumUrl,
+      PrimaryLarge: largeUrl,
+      PrimaryExtraLarge: extraLargeUrl,
+    },
     ListPrice: listPrice,
   } = product;
   return `<li class="product-card">

@@ -1,4 +1,4 @@
-import {loadHeaderFooter, getParam, qs} from './utils.mjs';
+import { loadHeaderFooter, getParam, qs } from './utils.mjs';
 import ProductData from './ProductData.mjs';
 import ProductList from './ProductList.mjs';
 

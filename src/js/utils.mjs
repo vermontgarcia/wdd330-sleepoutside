@@ -30,7 +30,9 @@ export const getParam = (param) => {
 
 export const addProductToCart = (product) => {
   const cartItems = getLocalStorage('so-cart') || [];
-  const existingItemIndex = cartItems.findIndex(item => item.Id === product.Id);
+  const existingItemIndex = cartItems.findIndex(
+    (item) => item.Id === product.Id,
+  );
 
   if (existingItemIndex > -1) {
     // If product already exists, update its quantity
