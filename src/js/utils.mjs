@@ -36,7 +36,7 @@ export const addProductToCart = (product) => {
 
   if (existingItemIndex > -1) {
     // If product already exists, update its quantity
-    cartItems[existingItemIndex].quantity += product.quantity;
+    cartItems[existingItemIndex].quantity += 1;
   } else {
     // Otherwise, add the product to the cart
     product.quantity = 1;
