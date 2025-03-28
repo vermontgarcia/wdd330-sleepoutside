@@ -2,7 +2,7 @@ import { qs, renderListWithTemplate } from './utils.mjs';
 
 const productCardTemplate = (product) => {
   const {
-    id,
+    Id: id,
     Brand: { Name: brandName },
     NameWithoutBrand: name,
     Images: {
@@ -14,7 +14,7 @@ const productCardTemplate = (product) => {
     ListPrice: listPrice,
   } = product;
   return `<li class="product-card">
-    <a href="product_pages/?product=${id}">
+    <a href="/product_pages/?product=${id}">
       <picture>
         <source media="(min-width: 1500px)" srcset="${extraLargeUrl}" />
         <source media="(min-width: 1000px)" srcset="${largeUrl}" />
