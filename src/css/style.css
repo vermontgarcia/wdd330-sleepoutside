@@ -189,6 +189,12 @@ button {
   /* Center the icons if needed */
 }
 
+.category {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .products {
   margin-top: 2rem;
   padding: 1rem;
@@ -203,11 +209,21 @@ button {
   flex-flow: row wrap;
   list-style-type: none;
   align-items: stretch;
+  justify-content: center;
 }
 
 .product-list a {
   text-decoration: none;
   color: var(--dark-grey);
+}
+
+/* Style for Title h2 and Search bar */
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  align-items: center;
 }
 
 /* Styles for product lists */

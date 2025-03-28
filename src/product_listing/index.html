@@ -11,13 +11,15 @@
     <header class="divider" id="header"></header>
     <main class="divider">
       <section class="products">
-        <h2>Top Products: <span class="title highlight"></span></h2>
-        <input
-          type="text"
-          id="searchBox"
-          oninput="searchProducts()"
-          placeholder="Search for a product..."
-        />
+        <div class="list-header">
+          <h2 id="category"></h2>
+          <input
+            type="text"
+            id="searchBox"
+            placeholder="Search for a product..."
+          />
+          <!-- added search bar functionality -->
+        </div>
         <ul id="product-list" class="product-list"></ul>
       </section>
     </main>
