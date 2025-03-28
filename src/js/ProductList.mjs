@@ -5,15 +5,20 @@ const productCardTemplate = (product) => {
     id,
     Brand: { Name: brandName },
     NameWithoutBrand: name,
-    Image: imageUrl,
+    Images: { PrimarySmall: smallUrl, PrimaryMedium: mediumUrl, PrimaryLarge: largeUrl, PrimaryExtraLarge: extraLargeUrl },
     ListPrice: listPrice,
   } = product;
   return `<li class="product-card">
     <a href="product_pages/?product=${id}">
-      <img
-        src="${imageUrl}"
-        alt="Image of ${name}"
-      />
+      <picture>
+        <source media="(min-width: 1500px)" srcset="${extraLargeUrl}" />
+        <source media="(min-width: 1000px)" srcset="${largeUrl}" />
+        <source media="(min-width: 800px)" srcset="${mediumUrl}" />
+        <img
+          src="${smallUrl}"
+          alt="Image of ${name}"
+        />
+      </picture>
       <h3 class="card__brand">${brandName}</h3>
       <h2 class="card__name">${name}</h2>
       <p class="product-card__price">${listPrice}</p></a
