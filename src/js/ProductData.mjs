@@ -11,16 +11,15 @@ function convertToJson(res) {
 export default class ProductData {
   constructor(category) {
     this.category = category;
-    this.path = `../json/${this.category}.json`;
   }
-  getData() {
-    return fetch(this.path)
-      .then(convertToJson)
-      .then((data) => data.Result)
-      .catch((error) => {
-        console.error('Error fetching product data:', error);
-        return []; // Return empty array if fetch fails
-      });
+  async getData(category) {
+    try {
+      const response = await fetch(`${baseURL}products/search/${category}`);
+      const data = await convertToJson(response);
+      return data.Result;
+    } catch (error) {
+      return []; // Return empty array if fetch fails
+    }
   }
 
   async findProductById(id, category) {
