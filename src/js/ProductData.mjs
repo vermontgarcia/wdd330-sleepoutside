@@ -12,6 +12,7 @@ export default class ProductData {
   constructor(category) {
     this.category = category;
   }
+  
   async getData(category) {
     try {
       const response = await fetch(`${baseURL}products/search/${category}`);
