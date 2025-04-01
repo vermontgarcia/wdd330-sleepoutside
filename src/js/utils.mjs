@@ -81,3 +81,9 @@ export const loadHeaderFooter = async () => {
   renderWithTemplate(header, headerElement);
   renderWithTemplate(footer, footerElement);
 };
+
+export const getCartTotal = (cartItems) =>
+  cartItems.reduce(
+    (acc, { FinalPrice: price, quantity }) => acc + price * quantity,
+    0,
+  );

@@ -1,4 +1,5 @@
 import {
+  getCartTotal,
   getLocalStorage,
   loadHeaderFooter,
   qs,
@@ -64,12 +65,6 @@ const addQuantityListeners = () => {
     input.addEventListener('change', updateQuantity);
   });
 };
-
-const getCartTotal = (cartItems) =>
-  cartItems.reduce(
-    (acc, { FinalPrice: price, quantity }) => acc + price * quantity,
-    0,
-  );
 
 const renderCartContents = () => {
   const cartItems = getLocalStorage('so-cart') || [];

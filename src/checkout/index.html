@@ -19,6 +19,92 @@
       <section class="products">
         <h2>Review & Place your Order</h2>
       </section>
+      <div id="order-summary"></div>
+      <form method="get" action="review.html" class="checkout-form">
+        <fieldset>
+          <label
+            >First Name<span class="required">*</span>
+            <input
+              type="text"
+              name="fistName"
+              id="f-name"
+              required
+              autocomplete
+            />
+          </label>
+          <label
+            >Last Name<span class="required">*</span>
+            <input
+              type="text"
+              name="lastName"
+              id="l-name"
+              required
+              autocomplete
+            />
+          </label>
+        </fieldset>
+        <fieldset>
+          <label
+            >Address<span class="required">*</span>
+            <input
+              type="text"
+              name="address"
+              id="address"
+              required
+              autocomplete
+            />
+          </label>
+          <label
+            >City<span class="required">*</span>
+            <input type="text" name="city" id="city" required autocomplete />
+          </label>
+          <label
+            >State<span class="required">*</span>
+            <input type="text" name="state" id="state" required autocomplete />
+          </label>
+          <label
+            >Zip Cope<span class="required">*</span>
+            <input
+              type="text"
+              name="zipCode"
+              id="zipCode"
+              required
+              autocomplete
+            />
+          </label>
+        </fieldset>
+        <fieldset>
+          <label
+            >Card Number<span class="required">*</span>
+            <input
+              type="text"
+              inputmode="numeric"
+              name="cardNumber"
+              id="card-number"
+              pattern="\d{13,16}"
+              required
+              autocomplete
+            />
+          </label>
+          <label
+            >Expiration Date<span class="required">*</span>
+            <input
+              type="month"
+              name="expiration"
+              id="expiration"
+              required
+              autocomplete
+            />
+          </label>
+          <label
+            >CVV<span class="required">*</span>
+            <input type="text" name="cvv" id="cvv" required />
+          </label>
+        </fieldset>
+        <fieldset>
+          <input type="submit" role="button" value="Place My Order" />
+        </fieldset>
+      </form>
     </main>
 
     <footer id="footer"></footer>
