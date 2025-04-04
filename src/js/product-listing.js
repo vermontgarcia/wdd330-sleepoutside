@@ -8,6 +8,7 @@ const productList = new ProductList(category, productData, qs('#product-list'));
 
 const formatedCategory =
   category.charAt(0).toUpperCase() + category.slice(1).toLowerCase();
+
 qs('#category').innerText = `${formatedCategory} Products`;
 qs('title').innerText = `${formatedCategory} | Product Listing`;
 
