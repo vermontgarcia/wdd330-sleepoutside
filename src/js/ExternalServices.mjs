@@ -8,11 +8,11 @@ function convertToJson(res) {
   }
 }
 
-export default class ProductData {
+export default class ExternalServices {
   constructor(category) {
     this.category = category;
   }
-  
+
   async getData(category) {
     try {
       const response = await fetch(`${baseURL}products/search/${category}`);
@@ -30,6 +30,25 @@ export default class ProductData {
       return data.Result;
     } catch (error) {
       return {};
+    }
+  }
+
+  async submitOrder(order) {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(order),
+    };
+    try {
+      const response = await fetch(`${baseURL}checkout/`, options);
+      const data = await convertToJson(response);
+      return data.Result;
+    } catch (error) {
+      return {
+        error,
+      };
     }
   }
 }

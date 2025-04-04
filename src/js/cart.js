@@ -1,20 +1,14 @@
 import {
-  getLocalStorage,
+  getCart,
+  getCartTotal,
   loadHeaderFooter,
+  qs,
   setLocalStorage,
+  showUpdateCartBadge,
 } from './utils.mjs';
 
-function renderCartContents() {
-  const cartItems = getLocalStorage('so-cart') || [];
-  const htmlItems = cartItems.map((item, index) =>
-    cartItemTemplate(item, index),
-  );
-  document.querySelector('.product-list').innerHTML = htmlItems.join('');
-  addQuantityListeners(); // Add listeners for quantity changes
-}
-
-function cartItemTemplate(product, index) {
-  const {
+const cartItemTemplate = (
+  {
     Id: id,
     NameWithoutBrand: name,
     Images: {
@@ -23,11 +17,13 @@ function cartItemTemplate(product, index) {
       PrimaryLarge: largeUrl,
       PrimaryExtraLarge: extraLargeUrl,
     },
-    FinalPrice: finalPrice,
+    FinalPrice: price,
     Colors,
     quantity,
-  } = product;
-
+  },
+  index,
+) => {
+  const finalPrice = price * quantity;
   return `
   <li class="cart-card divider">
     <a href="/product_pages/?product=${id}" class="cart-card__image">
@@ -46,30 +42,44 @@ function cartItemTemplate(product, index) {
       <label for="quantity-${index}">Qty:</label>
       <input type="number" id="quantity-${index}" data-index="${index}" value="${quantity || 1}" min="1" />
     </div>
-    <p class="cart-card__price">$${finalPrice}</p>
+    <p class="cart-card__price">$${finalPrice.toFixed(2)}</p>
   </li>
   `;
-}
+};
 
-function addQuantityListeners() {
+const updateQuantity = (event) => {
+  const index = event.target.dataset.index;
+  const newQuantity = parseInt(event.target.value);
+  if (newQuantity < 1) return; // Prevent invalid quantities
+
+  const cartItems = getCart();
+  cartItems[index].quantity = newQuantity;
+  setLocalStorage('so-cart', cartItems);
+  renderCartContents(); // Re-render cart to reflect changes
+  showUpdateCartBadge();
+};
+
+const addQuantityListeners = () => {
   const quantityInputs = document.querySelectorAll(
     '.cart-card__quantity input',
   );
   quantityInputs.forEach((input) => {
     input.addEventListener('change', updateQuantity);
   });
-}
+};
 
-function updateQuantity(event) {
-  const index = event.target.dataset.index;
-  const newQuantity = parseInt(event.target.value);
-  if (newQuantity < 1) return; // Prevent invalid quantities
-
-  const cartItems = getLocalStorage('so-cart') || [];
-  cartItems[index].quantity = newQuantity;
-  setLocalStorage('so-cart', cartItems);
-  renderCartContents(); // Re-render cart to reflect changes
-}
+const renderCartContents = () => {
+  const cartItems = getCart();
+  const htmlItems = cartItems.map((item, index) =>
+    cartItemTemplate(item, index),
+  );
+  document.querySelector('.product-list').innerHTML = htmlItems.join('');
+  addQuantityListeners(); // Add listeners for quantity changes
+  qs('#total').innerHTML = getCartTotal(cartItems).toFixed(2);
+  if (cartItems.length > 0) {
+    qs('#cart-footer').classList.remove('hide');
+  }
+};
 
 loadHeaderFooter();
 renderCartContents();

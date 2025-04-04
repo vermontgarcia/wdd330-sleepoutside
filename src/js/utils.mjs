@@ -28,8 +28,10 @@ export const getParam = (param) => {
   return urlParams.get(param);
 };
 
+export const getCart = () => getLocalStorage('so-cart') || [];
+
 export const addProductToCart = (product) => {
-  const cartItems = getLocalStorage('so-cart') || [];
+  const cartItems = getCart();
   const existingItemIndex = cartItems.findIndex(
     (item) => item.Id === product.Id,
   );
@@ -42,8 +44,8 @@ export const addProductToCart = (product) => {
     product.quantity = 1;
     cartItems.push(product);
   }
-
   setLocalStorage('so-cart', cartItems);
+  showUpdateCartBadge();
 };
 
 export const renderListWithTemplate = (
@@ -60,8 +62,8 @@ export const renderListWithTemplate = (
   parentElement.insertAdjacentHTML(position, htmlStrins.join(''));
 };
 
-export const renderWithTemplate = (template, parentElement, data, callback) => {
-  parentElement.innerHTML = template;
+export const renderWithTemplate = (template, container, data, callback) => {
+  container.innerHTML = template;
   if (callback) {
     callback(data);
   }
@@ -80,4 +82,26 @@ export const loadHeaderFooter = async () => {
 
   renderWithTemplate(header, headerElement);
   renderWithTemplate(footer, footerElement);
+  showUpdateCartBadge();
+};
+
+export const getCartTotal = (cartItems) =>
+  cartItems.reduce(
+    (acc, { FinalPrice: price, quantity }) => acc + price * quantity,
+    0,
+  );
+
+export const getCartTotalItems = (cartItems) =>
+  cartItems.reduce((acc, { quantity }) => acc + quantity, 0);
+
+export const showUpdateCartBadge = () => {
+  const totalItems = getCartTotalItems(getCart());
+  const cartBadgeWrapperElement = qs('#cart-badge-wrapper');
+  const cartBadgeElement = qs('#cart-badge');
+  if (totalItems > 0) {
+    cartBadgeElement.innerHTML = totalItems;
+    cartBadgeWrapperElement.classList.remove('hide');
+  } else {
+    cartBadgeWrapperElement.classList.add('hide');
+  }
 };
