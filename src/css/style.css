@@ -517,4 +517,19 @@ footer {
   margin-left: 5px;
 }
 
+/* success.html */
 
+.thanks {
+  max-width: 600px;
+  margin: 100px auto;
+  padding: 40px;
+  text-align: center;
+  background-color: var(--mercury);
+  border: #000000;
+  border-radius: 5px;
+  box-shadow: 1px 1px 4px var(--dark-grey);
+  font-size: var(--large-font);
+  color: var(--text-black);
+  font-weight: 600;
+  line-height: 1.5;
+}
