@@ -60,8 +60,8 @@ export const renderListWithTemplate = (
   parentElement.insertAdjacentHTML(position, htmlStrins.join(''));
 };
 
-export const renderWithTemplate = (template, parentElement, data, callback) => {
-  parentElement.innerHTML = template;
+export const renderWithTemplate = (template, container, data, callback) => {
+  container.innerHTML = template;
   if (callback) {
     callback(data);
   }
@@ -87,3 +87,6 @@ export const getCartTotal = (cartItems) =>
     (acc, { FinalPrice: price, quantity }) => acc + price * quantity,
     0,
   );
+
+export const getCartTotalItems = (cartItems) =>
+  cartItems.reduce((acc, { quantity }) => acc + quantity, 0);
