@@ -29,6 +29,7 @@ export const getParam = (param) => {
 };
 
 export const getCart = () => getLocalStorage('so-cart') || [];
+export const setCart = (cart = []) => setLocalStorage('so-cart', cart);
 
 export const addProductToCart = (product) => {
   const cartItems = getCart();
@@ -44,7 +45,7 @@ export const addProductToCart = (product) => {
     product.quantity = 1;
     cartItems.push(product);
   }
-  setLocalStorage('so-cart', cartItems);
+  setCart(cartItems);
   showUpdateCartBadge();
 };
 

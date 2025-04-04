@@ -3,7 +3,7 @@ import {
   getCartTotal,
   loadHeaderFooter,
   qs,
-  setLocalStorage,
+  setCart,
   showUpdateCartBadge,
 } from './utils.mjs';
 
@@ -54,7 +54,7 @@ const updateQuantity = (event) => {
 
   const cartItems = getCart();
   cartItems[index].quantity = newQuantity;
-  setLocalStorage('so-cart', cartItems);
+  setCart(cartItems);
   renderCartContents(); // Re-render cart to reflect changes
   showUpdateCartBadge();
 };
@@ -78,6 +78,11 @@ const renderCartContents = () => {
   qs('#total').innerHTML = getCartTotal(cartItems).toFixed(2);
   if (cartItems.length > 0) {
     qs('#cart-footer').classList.remove('hide');
+    qs('#checkout-btn').classList.remove('hide');
+  }
+  else {
+    qs('#cart-footer').classList.add('hide');
+    qs('#checkout-btn').classList.add('hide');
   }
 };
 
