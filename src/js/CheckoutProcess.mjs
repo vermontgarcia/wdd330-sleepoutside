@@ -4,6 +4,7 @@ import {
   getCartTotalItems,
   qs,
   renderWithTemplate,
+  setCart,
 } from './utils.mjs';
 
 const TAX = 0.06;
@@ -57,8 +58,8 @@ export default class CheckoutProcess {
   }
 
   init() {
-    qs('#zipCode').addEventListener('change', this.update.bind(this));
-    qs('#form').addEventListener('submit', this.prepareForm.bind(this));
+    qs('#zipCode')?.addEventListener('change', this.update.bind(this));
+    qs('#form')?.addEventListener('submit', this.prepareForm.bind(this));
     this.packageItemsList();
     this.calculateSubtotal();
     this.calculateTotal();
@@ -134,7 +135,15 @@ export default class CheckoutProcess {
   }
 
   async submitOrder(order) {
-    const newOrder = await apiClient.submitOrder(order);
-    console.log({ order: newOrder });
+    try {
+      const newOrder = await apiClient.submitOrder(order);
+      console.log({ order: newOrder });
+
+      setCart([]); // Clear the cart after successful order submission
+      window.location.replace('/checkout/success.html');
+    } catch (error) {
+      console.error('Error submitting order:', error);
+      alert('There was an error processing your order. Please try again.');
+    }
   }
 }
