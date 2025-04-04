@@ -29,6 +29,7 @@ export const getParam = (param) => {
 };
 
 export const getCart = () => getLocalStorage('so-cart') || [];
+
 export const setCart = (cart = []) => setLocalStorage('so-cart', cart);
 
 export const addProductToCart = (product) => {

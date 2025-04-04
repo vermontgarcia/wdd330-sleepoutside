@@ -134,16 +134,16 @@ export default class CheckoutProcess {
     this.submitOrder(order);
   }
 
-async submitOrder(order) {
-  try {
-    const newOrder = await apiClient.submitOrder(order);
-    console.log({ order: newOrder });
+  async submitOrder(order) {
+    try {
+      const newOrder = await apiClient.submitOrder(order);
+      console.log({ order: newOrder });
 
-    setCart([]); // Clear the cart after successful order submission
-    window.location.replace('/checkout/success.html');
-  } catch (error) {
-    console.error('Error submitting order:', error);
-    alert('There was an error processing your order. Please try again.');
+      setCart([]); // Clear the cart after successful order submission
+      window.location.replace('/checkout/success.html');
+    } catch (error) {
+      console.error('Error submitting order:', error);
+      alert('There was an error processing your order. Please try again.');
+    }
   }
-}
 }
