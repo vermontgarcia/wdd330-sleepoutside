@@ -54,13 +54,13 @@ export default class CheckoutProcess {
 
   init() {
     qs('#zipCode').addEventListener('change', this.update.bind(this));
-
     this.calculateSubtotal();
     this.calculateTotal();
     this.displayTotalSumary();
   }
 
   update() {
+    this.calculateSubtotal();
     this.calculateTax();
     this.calculateShipping();
     this.calculateTotal();
