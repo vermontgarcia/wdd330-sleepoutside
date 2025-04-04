@@ -1,9 +1,10 @@
 import {
+  getCart,
   getCartTotal,
-  getLocalStorage,
   loadHeaderFooter,
   qs,
   setLocalStorage,
+  showUpdateCartBadge,
 } from './utils.mjs';
 
 const cartItemTemplate = (
@@ -51,10 +52,11 @@ const updateQuantity = (event) => {
   const newQuantity = parseInt(event.target.value);
   if (newQuantity < 1) return; // Prevent invalid quantities
 
-  const cartItems = getLocalStorage('so-cart') || [];
+  const cartItems = getCart();
   cartItems[index].quantity = newQuantity;
   setLocalStorage('so-cart', cartItems);
   renderCartContents(); // Re-render cart to reflect changes
+  showUpdateCartBadge();
 };
 
 const addQuantityListeners = () => {
@@ -67,7 +69,7 @@ const addQuantityListeners = () => {
 };
 
 const renderCartContents = () => {
-  const cartItems = getLocalStorage('so-cart') || [];
+  const cartItems = getCart();
   const htmlItems = cartItems.map((item, index) =>
     cartItemTemplate(item, index),
   );
