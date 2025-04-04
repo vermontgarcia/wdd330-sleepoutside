@@ -32,4 +32,23 @@ export default class ExternalServices {
       return {};
     }
   }
+
+  async submitOrder(order) {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(order),
+    };
+    try {
+      const response = await fetch(`${baseURL}checkout/`, options);
+      const data = await convertToJson(response);
+      return data.Result;
+    } catch (error) {
+      return {
+        error,
+      };
+    }
+  }
 }

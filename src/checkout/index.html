@@ -20,27 +20,15 @@
         <h2>Review & Place your Order</h2>
       </section>
       <div id="order-summary"></div>
-      <form method="get" action="review.html" class="checkout-form">
+      <form id="form" method="get" action="review.html" class="checkout-form">
         <fieldset>
           <label
             >First Name<span class="required">*</span>
-            <input
-              type="text"
-              name="fistName"
-              id="f-name"
-              required
-              autocomplete
-            />
+            <input type="text" name="fname" id="f-name" required autocomplete />
           </label>
           <label
             >Last Name<span class="required">*</span>
-            <input
-              type="text"
-              name="lastName"
-              id="l-name"
-              required
-              autocomplete
-            />
+            <input type="text" name="lname" id="l-name" required autocomplete />
           </label>
         </fieldset>
         <fieldset>
@@ -48,8 +36,8 @@
             >Address<span class="required">*</span>
             <input
               type="text"
-              name="address"
-              id="address"
+              name="street"
+              id="street"
               required
               autocomplete
             />
@@ -64,13 +52,7 @@
           </label>
           <label
             >Zip Cope<span class="required">*</span>
-            <input
-              type="text"
-              name="zipCode"
-              id="zipCode"
-              required
-              autocomplete
-            />
+            <input type="text" name="zip" id="zipCode" required autocomplete />
           </label>
         </fieldset>
         <fieldset>
@@ -98,7 +80,7 @@
           </label>
           <label
             >CVV<span class="required">*</span>
-            <input type="text" name="cvv" id="cvv" required />
+            <input type="text" name="code" id="cvv" required />
           </label>
         </fieldset>
         <fieldset>

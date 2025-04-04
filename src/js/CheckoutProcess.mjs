@@ -1,3 +1,4 @@
+import ExternalServices from './ExternalServices.mjs';
 import {
   getCartTotal,
   getCartTotalItems,
@@ -42,9 +43,12 @@ const summaryTemplate = ({ subtotal, tax, shipping, total }) => `
   </ul>
 `;
 
+const apiClient = new ExternalServices();
+
 export default class CheckoutProcess {
   constructor(cart, summaryContainer) {
     this.cart = cart;
+    this.packageItems = [];
     this.summaryContainer = summaryContainer;
     this.subtotal = 0;
     this.tax = 0;
@@ -54,6 +58,8 @@ export default class CheckoutProcess {
 
   init() {
     qs('#zipCode').addEventListener('change', this.update.bind(this));
+    qs('#form').addEventListener('submit', this.prepareForm.bind(this));
+    this.packageItemsList();
     this.calculateSubtotal();
     this.calculateTotal();
     this.displayTotalSumary();
@@ -91,5 +97,44 @@ export default class CheckoutProcess {
       total: this.total,
     };
     renderWithTemplate(summaryTemplate(summaryData), this.summaryContainer);
+  }
+
+  jsonFormData(form) {
+    const formData = new FormData(form);
+    return Object.fromEntries(formData.entries());
+  }
+
+  packageItemsList() {
+    this.packageItems = this.cart.map(
+      ({ Id: id, Name: name, ListPrice: price, quantity }) => ({
+        id,
+        name,
+        price,
+        quantity,
+      }),
+    );
+  }
+
+  addOrderData(form) {
+    form.orderDate = new Date().toISOString();
+    form.orderTotal = this.total;
+    form.tax = this.tax;
+    form.shipping = this.shipping;
+    form.items = this.packageItems;
+    const [year, month] = form.expiration.split('-');
+    form.expiration = `${parseInt(month)}/${year.slice(-2)}`;
+    return form;
+  }
+
+  prepareForm(event) {
+    event.preventDefault();
+    const form = this.jsonFormData(event.target);
+    const order = this.addOrderData(form);
+    this.submitOrder(order);
+  }
+
+  async submitOrder(order) {
+    const newOrder = await apiClient.submitOrder(order);
+    console.log({ order: newOrder });
   }
 }
