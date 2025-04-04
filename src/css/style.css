@@ -146,6 +146,29 @@ button {
   text-align: center;
 }
 
+.cart-badge-wrapper {
+  position: absolute;
+  top: 8px;
+  right: -5px;
+  background-color: var(--button);
+  color: white;
+  border-radius: 50%;
+  width: 1.25rem;
+  height: 1.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cart-badge {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.cart-badge .hide {
+  display: none;
+}
+
 .cart svg {
   width: 25px;
 }
